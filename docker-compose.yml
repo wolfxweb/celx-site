@@ -1,0 +1,45 @@
+version: "3.8"
+
+services:
+  celx-backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: celx-backend
+    restart: unless-stopped
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://postgres:postgres123@postgres:5432/celx_site
+      - JWT_SECRET=${JWT_SECRET:-celx-jwt-secret-2026}
+      - TELEGRAM_BOT_TOKEN=8312031269:AAFto1ZfqRbj3e4mWYEBsV4KgaJ7GLGgVJ8
+      - TELEGRAM_CHAT_ID=1229273513
+      - CORS_ORIGIN=http://localhost:3000
+    networks:
+      - celx-net
+
+  celx-frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: celx-frontend
+    restart: unless-stopped
+    networks:
+      - celx-net
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: celx-postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_PASSWORD=postgres123
+      - POSTGRES_DB=celx_site
+    volumes:
+      - celx-pgdata:/var/lib/postgresql/data
+    networks:
+      - celx-net
+
+networks:
+  celx-net:
+    driver: bridge
+
+volumes:
+  celx-pgdata:
