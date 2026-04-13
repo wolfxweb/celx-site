@@ -1,0 +1,43 @@
+version: "3.8"
+
+services:
+  celx-backend:
+    image: celx-backend:v3
+    networks:
+      - celx_shared
+      - celx_front_net
+    environment:
+      - DATABASE_URL=postgresql+asyncpg://postgres:postgres123@postgres_postgres:5432/celx_site
+      - JWT_SECRET=celx-jwt-secret-2026
+      - TELEGRAM_BOT_TOKEN=8312031269:AAFto1ZfqRbj3e4mWYEBsV4KgaJ7GLGgVJ8
+      - TELEGRAM_CHAT_ID=1229273513
+      - CORS_ORIGIN=https://celx.com.br
+    deploy:
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.celx-api.rule=Host(`api.celx.com.br`)"
+        - "traefik.http.routers.celx-api.entrypoints=websecure"
+        - "traefik.http.routers.celx-api.tls=true"
+        - "traefik.http.services.celx-api.loadbalancer.server.port=8000"
+        - "traefik.constraint-label=server"
+
+  celx-frontend:
+    image: celx-frontend:v1
+    networks:
+      - celx_front_net
+    deploy:
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.celx.rule=Host(`celx.com.br`)"
+        - "traefik.http.routers.celx.entrypoints=websecure"
+        - "traefik.http.routers.celx.tls=true"
+        - "traefik.http.services.celx.loadbalancer.server.port=80"
+        - "traefik.constraint-label=server"
+
+networks:
+  celx_shared:
+    external: true
+    name: celx_shared
+  celx_front_net:
+    driver: overlay
+    attachable: true

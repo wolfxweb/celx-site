@@ -3,7 +3,7 @@ from sqlalchemy import select
 from app.core.database import async_session
 from app.core.security import get_current_admin
 from app.models.models import PageContent, ContactMessage, AdminUser
-from app.schemas.schemas import PageContentUpdate, PageContentOut
+from app.schemas.schemas import PageContentUpdate, PageContentOut, ContactOut
 
 router = APIRouter(prefix="/api/v1/admin", tags=["admin"])
 
