@@ -25,6 +25,8 @@ async def get_home():
                 "cta_text": "Agendar uma conversa",
                 "cta_secondary": "Sobre mim",
                 "avatar_url": "",
+                "cover_url": "",
+                "logo_url": "",
             },
             "stats": {
                 "items": [
@@ -57,6 +59,24 @@ async def get_home():
                     {"tag": "Produto em produção · Plataforma com IA", "title": "Creative IA Studio", "description": "Plataforma de ensaios fotográficos com IA para clientes finais. O cliente envia fotos, escolhe o estilo e recebe um ensaio profissional — sem estúdio, sem fotógrafo.", "url": "https://creativeiastudio.com/ensaio-fotografico-ia"},
                 ]
             },
+            "livro": {
+                "title": "Desenvolvimento com IA na Prática",
+                "subtitle": "Guia corporativo para empresas de software que querem aplicar IA no dia a dia",
+                "serie": "Série AI-First na Prática — Livro 1",
+                "author": "Carlos Eduardo Lobo",
+                "description": "A Inteligência Artificial já está mudando a forma como software é construído. Este guia corporativo mostra como utilizar IA no fluxo real de desenvolvimento — com mais velocidade, qualidade e eficiência operacional.",
+                "bullets": [
+                    "Criar features com mais velocidade",
+                    "Estruturar prompts melhores para código",
+                    "Acelerar debug e refatoração",
+                    "Gerar testes e documentação com mais eficiência",
+                    "Automatizar tarefas repetitivas do fluxo de desenvolvimento",
+                    "Aplicar IA no código real da empresa com segurança"
+                ],
+                "cta_text": "Comprar na Amazon",
+                "cta_secondary": "Ver detalhes do livro",
+                "amazon_url": "https://www.amazon.com.br/Desenvolvimento-com-IA-Pr%C3%A1tica-corporativo-ebook/dp/B0F9L6PRWL"
+            },
             "artigos": {
                 "articles": [
                     {"tag": "IA aplicada · Leitura essencial", "title": "O problema não é falta de IA. É falta de estrutura para aplicá-la do jeito certo.", "url": "#"},
@@ -73,11 +93,13 @@ async def get_home():
                 ]
             },
             "contato": {
-                "title": "Precisa de um<br>sistema ou <em>consultoria</em>?",
-                "subtitle": "Se você tem um problema de software para resolver, quer estruturar melhor sua operação com IA, ou precisa de uma consultoria técnica — me manda uma mensagem e a gente vê se faz sentido trabalhar juntos.",
+                "title": "Vamos construir algo <strong>incrível</strong> juntos?",
+                "subtitle": "Estou sempre aberto a novos projetos, ideias e parcerias.",
                 "whatsapp_url": "https://wa.me/5548988114708",
-                "linkedin_url": "https://linkedin.com",
-            }
+                "linkedin_url": "https://www.linkedin.com/in/carloslobo/",
+                "instagram_url": "https://www.instagram.com/carloslobo.tech/",
+                "tiktok_url": "https://www.tiktok.com/@carloslobo.tech",
+            },
         }
 
         def get_section(name: str) -> dict:
@@ -89,7 +111,7 @@ async def get_home():
             sobre=get_section("sobre"),
             especialidades=get_section("especialidades"),
             portfolio=get_section("portfolio"),
-            artigos=get_section("artigos"),
+            livro=get_section("livro"),
             servicos=get_section("servicos"),
             contato=get_section("contato"),
         )

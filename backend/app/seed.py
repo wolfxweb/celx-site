@@ -23,7 +23,7 @@ async def seed():
         if not existing:
             admin = AdminUser(
                 email="carlos@celx.com",
-                password_hash=hash_password("AdminCelx@123"),
+                password_hash=hash_password("@Wolfx2020"),
             )
             session.add(admin)
             await session.commit()

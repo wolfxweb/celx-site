@@ -36,7 +36,7 @@ class HomePageOut(BaseModel):
     sobre: dict
     especialidades: dict
     portfolio: dict
-    artigos: dict
+    livro: dict
     servicos: dict
     contato: dict
 
@@ -54,6 +54,43 @@ class ContactOut(BaseModel):
     email: str
     message: str
     created_at: datetime
+
+    class Config:
+        from_attributes = True
+
+
+# ─── Blog Post ────────────────────────────────────────────
+class BlogPostCreate(BaseModel):
+    title: str
+    slug: str
+    excerpt: str | None = None
+    content: str
+    cover_url: str | None = None
+    tags: list[str] | None = None
+    published: bool = False
+
+
+class BlogPostUpdate(BaseModel):
+    title: str | None = None
+    slug: str | None = None
+    excerpt: str | None = None
+    content: str | None = None
+    cover_url: str | None = None
+    tags: list[str] | None = None
+    published: bool | None = None
+
+
+class BlogPostOut(BaseModel):
+    id: int
+    title: str
+    slug: str
+    excerpt: str | None
+    content: str
+    cover_url: str | None
+    tags: list[str] | None
+    published: bool
+    created_at: datetime
+    updated_at: datetime | None
 
     class Config:
         from_attributes = True

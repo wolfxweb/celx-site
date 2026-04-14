@@ -1,9 +1,10 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from app.core.config import get_settings
 from app.core.database import init_db
-from app.routers import auth, pages, contact, admin
+from app.routers import auth, pages, contact, admin, blog
 
 settings = get_settings()
 
@@ -34,6 +35,10 @@ app.include_router(auth.router)
 app.include_router(pages.router)
 app.include_router(contact.router)
 app.include_router(admin.router)
+app.include_router(blog.router)
+
+# Static files for uploads
+app.mount("/uploads", StaticFiles(directory="/root/celx-site/backend/uploads"), name="uploads")
 
 
 @app.get("/health")

@@ -2,10 +2,12 @@ version: "3.8"
 
 services:
   celx-backend:
-    image: celx-backend:v3
+    image: celx-backend:fix
     networks:
       - celx_shared
       - celx_front_net
+    volumes:
+      - celx_uploads:/root/celx-site/backend/uploads
     environment:
       - DATABASE_URL=postgresql+asyncpg://postgres:postgres123@postgres_postgres:5432/celx_site
       - JWT_SECRET=celx-jwt-secret-2026
@@ -19,10 +21,15 @@ services:
         - "traefik.http.routers.celx-api.entrypoints=websecure"
         - "traefik.http.routers.celx-api.tls=true"
         - "traefik.http.services.celx-api.loadbalancer.server.port=8000"
+        - "traefik.http.routers.celx-uploads.rule=Host(`celx.com.br`) && PathPrefix(`/uploads`)"
+        - "traefik.http.routers.celx-uploads.entrypoints=websecure"
+        - "traefik.http.routers.celx-uploads.tls=true"
+        - "traefik.http.routers.celx-uploads.service=celx-uploads"
+        - "traefik.http.services.celx-uploads.loadbalancer.server.port=8000"
         - "traefik.constraint-label=server"
 
   celx-frontend:
-    image: celx-frontend:v1
+    image: celx-frontend:fix
     networks:
       - celx_front_net
     deploy:
@@ -41,3 +48,6 @@ networks:
   celx_front_net:
     driver: overlay
     attachable: true
+
+volumes:
+  celx_uploads:

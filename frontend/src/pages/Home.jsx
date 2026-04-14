@@ -13,6 +13,14 @@ function AvatarIcon() {
 }
 
 function HeroSection({ hero }) {
+  const coverStyle = hero.cover_url
+    ? {
+        backgroundImage: `url(${hero.cover_url})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }
+    : {}
+
   return (
     <section className="hero" style={{ paddingTop: '8rem', paddingBottom: '4rem' }}>
       <div className="hero-text">
@@ -20,13 +28,15 @@ function HeroSection({ hero }) {
         <h1 className="fade-up" dangerouslySetInnerHTML={{ __html: hero.title }} />
         <p className="hero-sub fade-up">{hero.subtitle}</p>
         <div className="hero-actions fade-up">
-          <a href="#contato" className="btn-primary">{hero.cta_text}</a>
-          <a href="#sobre" className="btn-ghost">{hero.cta_secondary}</a>
+          <a href="/#contato" className="btn-primary">{hero.cta_text}</a>
+          <a href="/#sobre" className="btn-ghost">{hero.cta_secondary}</a>
         </div>
       </div>
       <div className="hero-visual">
         <div className="avatar-frame">
-          {hero.avatar_url ? (
+          {hero.cover_url ? (
+            <img src={hero.cover_url} alt="Capa" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          ) : hero.avatar_url ? (
             <img src={hero.avatar_url} alt="Carlos Eduardo Lobo" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           ) : (
             <div className="avatar-placeholder">
@@ -117,26 +127,62 @@ function PortfolioSection({ portfolio }) {
   )
 }
 
-function ArtigosSection({ artigos }) {
+function LivroSection({ livro }) {
   return (
-    <section id="conteudo">
-      <div className="artigos-header">
+    <section id="livro" style={{ background: 'var(--black)', color: 'var(--white)' }}>
+      <div style={{ maxWidth: 1100, margin: '0 auto', padding: '5rem 2rem', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'center' }}>
         <div>
-          <p className="section-eyebrow">Conteúdo</p>
-          <h2 className="section-title" style={{ marginBottom: 0 }}>Reflexões e <em>aprendizados</em></h2>
-        </div>
-        <a href="https://linkedin.com" className="artigos-link" target="_blank" rel="noreferrer">Ver tudo no LinkedIn</a>
-      </div>
-      <div className="artigos-grid">
-        {artigos.articles.map((art, i) => (
-          <a href={art.url} key={i} className={`artigo-card${i === 0 ? ' featured' : ''}`}>
-            <div>
-              <p className="artigo-tag">{art.tag}</p>
-              <h3>{art.title}</h3>
-            </div>
-            <span className="artigo-arrow">→</span>
+          <p style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.15em', color: '#f0a500', marginBottom: '0.75rem', fontWeight: 500 }}>
+            {livro.serie}
+          </p>
+          <h2 style={{ fontFamily: 'var(--serif)', fontSize: '2.2rem', lineHeight: 1.15, marginBottom: '0.5rem', color: 'var(--white)' }}>
+            {livro.title}
+          </h2>
+          <p style={{ fontSize: '1rem', color: 'rgba(244,246,251,0.6)', marginBottom: '1.5rem', fontWeight: 300 }}>
+            {livro.subtitle}
+          </p>
+          <p style={{ fontSize: '0.9rem', color: 'rgba(244,246,251,0.75)', lineHeight: 1.8, marginBottom: '1.5rem' }}>
+            {livro.description}
+          </p>
+          <a
+            href={livro.amazon_url}
+            target="_blank"
+            rel="noreferrer"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              background: '#f0a500',
+              color: 'var(--black)',
+              padding: '0.75rem 1.5rem',
+              borderRadius: 8,
+              fontWeight: 600,
+              fontSize: '0.9rem',
+              textDecoration: 'none',
+              transition: 'opacity 0.2s',
+            }}
+            onMouseEnter={e => e.currentTarget.style.opacity = '0.85'}
+            onMouseLeave={e => e.currentTarget.style.opacity = '1'}
+          >
+            📖 {livro.cta_text} →
           </a>
-        ))}
+        </div>
+        <div>
+          <p style={{ fontSize: '0.8rem', color: 'rgba(244,246,251,0.5)', marginBottom: '1rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+            O que você vai aprender
+          </p>
+          <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+            {livro.bullets.map((item, i) => (
+              <li key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.75rem', fontSize: '0.95rem', color: 'rgba(244,246,251,0.85)' }}>
+                <span style={{ color: '#f0a500', fontSize: '1.1rem', lineHeight: '1.4rem' }}>✓</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+          <p style={{ marginTop: '2rem', paddingTop: '1.5rem', borderTop: '1px solid rgba(244,246,251,0.1)', fontSize: '0.82rem', color: 'rgba(244,246,251,0.4)' }}>
+            Por <strong style={{ color: 'rgba(244,246,251,0.7)' }}>{livro.author}</strong> · eBook Kindle
+          </p>
+        </div>
       </div>
     </section>
   )
@@ -161,7 +207,7 @@ function ServicosSection({ servicos }) {
           ))}
         </div>
         <div style={{ marginTop: '2.5rem', textAlign: 'center' }}>
-          <a href="#contato" className="btn-contato-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
+          <a href="/#contato" className="btn-contato-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
             Vamos conversar sobre o seu projeto →
           </a>
         </div>
@@ -171,73 +217,26 @@ function ServicosSection({ servicos }) {
 }
 
 function ContatoSection({ contato }) {
-  const [form, setForm] = useState({ name: '', email: '', message: '' })
-  const [status, setStatus] = useState(null) // 'success' | 'error' | null
-
-  async function handleSubmit(e) {
-    e.preventDefault()
-    setStatus(null)
-    try {
-      const r = await fetch('/api/v1/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-      })
-      if (!r.ok) throw new Error('Erro ao enviar')
-      setStatus('success')
-      setForm({ name: '', email: '', message: '' })
-    } catch {
-      setStatus('error')
-    }
-  }
-
   return (
     <div className="contato-section" id="contato">
       <div className="contato-inner">
         <p className="section-eyebrow">Contato</p>
         <h2 className="contato-title" dangerouslySetInnerHTML={{ __html: contato.title }} />
         <p className="contato-sub">{contato.subtitle}</p>
-        <div className="contato-buttons">
-          <a href={contato.whatsapp_url} className="btn-contato-primary" target="_blank" rel="noreferrer">WhatsApp</a>
-          <a href={contato.linkedin_url} className="btn-contato-ghost" target="_blank" rel="noreferrer">LinkedIn</a>
+        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '1rem', marginTop: '2.5rem' }}>
+          <a href={contato.whatsapp_url} className="btn-contato-primary" target="_blank" rel="noreferrer">
+            💬 WhatsApp
+          </a>
+          <a href={contato.linkedin_url} className="btn-contato-ghost" target="_blank" rel="noreferrer">
+            💼 LinkedIn
+          </a>
+          <a href={contato.instagram_url} className="btn-contato-ghost" target="_blank" rel="noreferrer">
+            📸 Instagram
+          </a>
+          <a href={contato.tiktok_url} className="btn-contato-ghost" target="_blank" rel="noreferrer">
+            🎵 TikTok
+          </a>
         </div>
-
-        <form className="contact-form" onSubmit={handleSubmit} style={{ marginTop: '3rem' }}>
-          <div className="form-group">
-            <label>Nome</label>
-            <input
-              type="text"
-              required
-              placeholder="Seu nome"
-              value={form.name}
-              onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
-            />
-          </div>
-          <div className="form-group">
-            <label>Email</label>
-            <input
-              type="email"
-              required
-              placeholder="seu@email.com"
-              value={form.email}
-              onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
-            />
-          </div>
-          <div className="form-group">
-            <label>Mensagem</label>
-            <textarea
-              required
-              placeholder="Conte-me sobre seu projeto..."
-              value={form.message}
-              onChange={e => setForm(f => ({ ...f, message: e.target.value }))}
-            />
-          </div>
-          <button type="submit" className="admin-save-btn" style={{ width: '100%', background: 'var(--white)', color: 'var(--black)' }}>
-            Enviar mensagem
-          </button>
-          {status === 'success' && <div className="form-success">Mensagem enviada com sucesso!</div>}
-          {status === 'error' && <div className="form-error">Erro ao enviar. Tente novamente.</div>}
-        </form>
       </div>
     </div>
   )
@@ -249,7 +248,9 @@ function Footer() {
       <p>© 2026 Carlos Eduardo Lobo</p>
       <ul className="footer-links">
         <li><a href="https://www.wolfx.com.br" target="_blank" rel="noreferrer">Wolfx</a></li>
-        <li><a href="https://linkedin.com" target="_blank" rel="noreferrer">LinkedIn</a></li>
+        <li><a href="https://www.linkedin.com/in/carloslobo/" target="_blank" rel="noreferrer">LinkedIn</a></li>
+        <li><a href="https://www.instagram.com/carloslobo.tech/" target="_blank" rel="noreferrer">Instagram</a></li>
+        <li><a href="https://www.tiktok.com/@carloslobo.tech" target="_blank" rel="noreferrer">TikTok</a></li>
         <li><a href="https://wa.me/5548988114708" target="_blank" rel="noreferrer">WhatsApp</a></li>
       </ul>
     </footer>
@@ -290,9 +291,7 @@ export default function Home() {
       <EspecialidadesSection especialidades={data.especialidades} />
       <Sep />
       <PortfolioSection portfolio={data.portfolio} />
-      <Sep />
-      <ArtigosSection artigos={data.artigos} />
-      <Sep />
+      <LivroSection livro={data.livro} />
       <ServicosSection servicos={data.servicos} />
       <Sep />
       <ContatoSection contato={data.contato} />
