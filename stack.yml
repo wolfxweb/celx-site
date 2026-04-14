@@ -9,7 +9,7 @@ services:
     volumes:
       - celx_uploads:/root/celx-site/backend/uploads
     environment:
-      - DATABASE_URL=postgresql+asyncpg://postgres:postgres123@postgres_postgres:5432/celx_site
+      - DATABASE_URL=postgresql+asyncpg://postgres:97452c28f62db6d77be083917b698660@postgres_postgres:5432/celx_site
       - JWT_SECRET=celx-jwt-secret-2026
       - TELEGRAM_BOT_TOKEN=8312031269:AAFto1ZfqRbj3e4mWYEBsV4KgaJ7GLGgVJ8
       - TELEGRAM_CHAT_ID=1229273513
