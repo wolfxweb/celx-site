@@ -96,7 +96,7 @@ async def get_home():
                 "title": "Vamos construir algo <strong>incrível</strong> juntos?",
                 "subtitle": "Estou sempre aberto a novos projetos, ideias e parcerias.",
                 "whatsapp_url": "https://wa.me/5548988114708",
-                "linkedin_url": "https://www.linkedin.com/in/carloslobo/",
+                "linkedin_url": "https://www.linkedin.com/in/carlos-eduardo-lobo/",
                 "instagram_url": "https://www.instagram.com/carloslobo.tech/",
                 "tiktok_url": "https://www.tiktok.com/@carloslobo.tech",
             },

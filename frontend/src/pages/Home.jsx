@@ -248,7 +248,7 @@ function Footer() {
       <p>© 2026 Carlos Eduardo Lobo</p>
       <ul className="footer-links">
         <li><a href="https://www.wolfx.com.br" target="_blank" rel="noreferrer">Wolfx</a></li>
-        <li><a href="https://www.linkedin.com/in/carloslobo/" target="_blank" rel="noreferrer">LinkedIn</a></li>
+        <li><a href="https://www.linkedin.com/in/carlos-eduardo-lobo/" target="_blank" rel="noreferrer">LinkedIn</a></li>
         <li><a href="https://www.instagram.com/carloslobo.tech/" target="_blank" rel="noreferrer">Instagram</a></li>
         <li><a href="https://www.tiktok.com/@carloslobo.tech" target="_blank" rel="noreferrer">TikTok</a></li>
         <li><a href="https://wa.me/5548988114708" target="_blank" rel="noreferrer">WhatsApp</a></li>
